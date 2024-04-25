@@ -77,6 +77,17 @@ The registers 0x0010…0x0012 contain the configuration of the hardware. You sho
 
 BMS info and the BMS/BMU history area read by first writing a request and the status code. Then waiting for the status response and then reading 65 register five times. The first register contains the size of the package. See the python code for more details.
 
+## Accessing the BYD-Battery-Box via NodeRed
+
+First make sure `node-red-contrib-modbus` is installed. Then add the nodes and configure as seen in the screenshots. I feed the output into an InfluxDB, but that is up to you to decide what to do with the results.
+
+![Add a Modbus Read node](./images/nodered_read.png)
+![Configure the Modbus server](./images/nodered_server.png)
+![Add a function to convert the registers to a JSON struct](./images/nodered_function.png)
+
+***Important*** only one application can access the box at the same time. If you have a NodeRed script running, then the windows application will fail!
+
+
 ## Firmware versions
 
 While I will not document firmware updates, because it could change at any time and it is too risky to deal with, I'll provide a code block to read all available firmware versions from they BYD server.
